@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SampleApp</string>
+    <string name="ngo_description">Helps Cleaning our roads</string>
+    <string name="interested_intent">I AM INTERESTED</string>
+</resources>
