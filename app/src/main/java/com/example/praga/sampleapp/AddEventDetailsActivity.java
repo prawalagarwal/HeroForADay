@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.text.DateFormat;
 import java.util.Calendar;
 
@@ -35,15 +37,28 @@ public class AddEventDetailsActivity extends AppCompatActivity implements Adapte
     private String format = "";
     private Spinner hoursSpinner;
     private String numberOfHours;
+    private Button saveButton;
+    private Button cancelButton;
+    private String eventNameString;
+    private String eventDescriptionString;
+    private String eventLocationString;
+    private String eventDateString;
+    private String eventTimeString;
+    private String eventHoursString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ngo_add_event_page);
 
+        eventName = (TextView)findViewById(R.id.add_event_event_name);
+        eventDescription = (TextView)findViewById(R.id.add_event_event_description);
+        eventLocation = (TextView)findViewById(R.id.add_event_event_location);
         dateButton = (Button)findViewById(R.id.add_event_date_button);
         timeButton = (Button)findViewById(R.id.add_event_time_button);
         hoursSpinner = (Spinner)findViewById(R.id.add_event_hours);
+        saveButton = (Button)findViewById(R.id.add_event_accept);
+        cancelButton = (Button)findViewById(R.id.add_event_reject);
         hoursSpinner.setOnItemSelectedListener(this);
 
         calendar = Calendar.getInstance();
@@ -61,6 +76,16 @@ public class AddEventDetailsActivity extends AppCompatActivity implements Adapte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         hoursSpinner.setAdapter(adapter);
 
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                eventNameString = eventName.getText().toString();
+                eventDescriptionString = eventDescription.getText().toString();
+                eventLocationString = eventLocation.getText().toString();
+                eventDateString = dateButton.getText().toString();
+                eventTimeString = timeButton.getText().toString();
+            }
+        });
     }
 
     @SuppressWarnings("deprecation")
