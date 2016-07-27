@@ -1,5 +1,19 @@
 <resources>
-    <string name="app_name">SampleApp</string>
+    <string name="app_name">HeroForADay</string>
     <string name="ngo_description">Helps Cleaning our roads</string>
     <string name="interested_intent">I AM INTERESTED</string>
+    <string name="title_activity_add_event_details">AddEventDetailsActivity</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="event_name">Event Name</string>
+    <string name="event_descritpion">Event Descritpion</string>
+    <string name="event_location">Event Location</string>
+    <string name="acceptEvent">Add</string>
+    <string name="rejectEvent">Cancel</string>
+    <string-array name="num_hours_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>3+</item>
+    </string-array>
 </resources>

@@ -57,11 +57,12 @@ public class MainActivity extends AppCompatActivity implements RVAdapter.ClickLi
 
     @Override
     public void itemCLicked(View view, int position) {
-        Intent descriptionStartIntent = new Intent(this, NGODescriptionPageActivity.class);
-        descriptionStartIntent.putExtra("INDEX", position);
-        descriptionStartIntent.putExtra("EVENTNAME", ngoEvents.get(position).eventName);
-        descriptionStartIntent.putExtra("EVENTTIME", ngoEvents.get(position).date);
-        descriptionStartIntent.putExtra("EVENTLOCATION", ngoEvents.get(position).location);
+        //Intent descriptionStartIntent = new Intent(this, NGODescriptionPageActivity.class);
+        Intent descriptionStartIntent = new Intent(this, AddEventDetailsActivity.class);
+        //descriptionStartIntent.putExtra("INDEX", position);
+        //descriptionStartIntent.putExtra("EVENTNAME", ngoEvents.get(position).eventName);
+        //descriptionStartIntent.putExtra("EVENTTIME", ngoEvents.get(position).date);
+        //descriptionStartIntent.putExtra("EVENTLOCATION", ngoEvents.get(position).location);
         startActivity(descriptionStartIntent);
     }
 }

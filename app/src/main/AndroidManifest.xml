@@ -15,7 +15,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NGODescriptionPageActivity"></activity>
+        <activity android:name=".NGODescriptionPageActivity" />
+        <activity
+            android:name=".AddEventDetailsActivity"
+            android:label="@string/title_activity_add_event_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
