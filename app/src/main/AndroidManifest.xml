@@ -19,7 +19,8 @@
         <activity
             android:name=".AddEventDetailsActivity"
             android:label="@string/title_activity_add_event_details"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".NGOOptionsActivity"/>
     </application>
 
 </manifest>

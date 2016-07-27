@@ -35,8 +35,10 @@
             android:paddingTop="1dp"
             android:paddingLeft="2dp"
             android:layout_below="@id/ngo_title_photo"
-            android:textSize="15sp"
-            android:gravity="start"/>
+            android:textSize="17sp"
+            android:gravity="start"
+            android:textColor="#212121"
+            />
 
         <TextView
             android:id="@+id/activity_date"
@@ -46,6 +48,8 @@
             android:paddingTop="1dp"
             android:paddingLeft="2dp"
             android:gravity="start"
+            android:textSize="15sp"
+            android:textColor="#212121"
             />
 
         <TextView
@@ -56,6 +60,8 @@
             android:paddingRight="2dp"
             android:layout_below="@id/ngo_title_photo"
             android:layout_alignParentRight="true"
+            android:textSize="15sp"
+            android:textColor="#212121"
             />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

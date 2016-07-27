@@ -86,6 +86,13 @@ public class AddEventDetailsActivity extends AppCompatActivity implements Adapte
                 eventTimeString = timeButton.getText().toString();
             }
         });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @SuppressWarnings("deprecation")

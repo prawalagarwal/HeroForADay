@@ -10,6 +10,7 @@
     <string name="event_location">Event Location</string>
     <string name="acceptEvent">Add</string>
     <string name="rejectEvent">Cancel</string>
+    <string name="NGOTitle">NGO</string>
     <string-array name="num_hours_array">
         <item>1</item>
         <item>2</item>
