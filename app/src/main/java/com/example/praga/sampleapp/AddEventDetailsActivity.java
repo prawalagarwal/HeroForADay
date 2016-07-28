@@ -1,9 +1,12 @@
 package com.example.praga.sampleapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,10 +22,15 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
+
 import org.w3c.dom.Text;
 
+import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddEventDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -45,6 +53,9 @@ public class AddEventDetailsActivity extends AppCompatActivity implements Adapte
     private String eventDateString;
     private String eventTimeString;
     private String eventHoursString;
+
+    private MobileServiceClient mClient;
+    private MobileServiceTable<EventV5> mEventTable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +82,18 @@ public class AddEventDetailsActivity extends AppCompatActivity implements Adapte
         showDate(year, month+1, day);
         showTime(hour, min);
 
+        try {
+            mClient = new MobileServiceClient(
+                    "https://abpriyad.azurewebsites.net",
+                    this);
+
+            mEventTable = mClient.getTable(EventV5.class);
+        } catch (MalformedURLException e) {
+            //createAndShowDialog(new Exception("Please verify if device is having internet connectivity"), "Error");
+        } catch (Exception e){
+            //createAndShowDialog(e, "Error");
+        }
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.num_hours_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -84,15 +107,71 @@ public class AddEventDetailsActivity extends AppCompatActivity implements Adapte
                 eventLocationString = eventLocation.getText().toString();
                 eventDateString = dateButton.getText().toString();
                 eventTimeString = timeButton.getText().toString();
+                eventHoursString = hoursSpinner.getSelectedItem().toString();
+
+                if(eventNameString.isEmpty() || eventDescriptionString.isEmpty() || eventLocationString.isEmpty() || eventDateString.isEmpty() || eventTimeString.isEmpty())
+                {
+                    Toast.makeText(getApplicationContext(), "Some Fields are empty. Please fill all the above fields.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Saving Event Details. Please Wait...", Toast.LENGTH_SHORT).show();
+
+                    SaveEventDataToTable();
+
+                    Toast.makeText(getApplicationContext(), "Saved!.", Toast.LENGTH_SHORT).show();
+                    setResult(RESULT_OK);
+                    finish();
+                }
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                setResult(RESULT_CANCELED);
+                finish();
             }
         });
+
+
+    }
+
+    private void SaveEventDataToTable() {
+
+        AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
+            @Override
+            protected Void doInBackground(Void... params) {
+
+                try {
+                    EventV5 event = new EventV5();
+                    event.EventName = eventNameString;
+                    event.Location = eventLocationString;
+                    event.StartDateTime = eventDateString + " " + eventTimeString;
+                    event.Category = "Social";
+                    event.NgoId = "cdacb36bf91945eaacbff4e2fc48409c";
+                    event.Duration = eventHoursString;
+
+                    mEventTable.insert(event).get();
+                }
+                catch (Exception e)
+                {
+                    //createAndShowDialogFromTask(e, "Error");
+                }
+
+                return null;
+            }
+        };
+
+        runAsyncTask(task);
+    }
+
+    private AsyncTask<Void, Void, Void> runAsyncTask(AsyncTask<Void, Void, Void> task){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            return task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else {
+            return task.execute();
+        }
     }
 
     @SuppressWarnings("deprecation")
@@ -161,4 +240,29 @@ public class AddEventDetailsActivity extends AppCompatActivity implements Adapte
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
+
+    /*private void createAndShowDialogFromTask(final Exception exception, String title) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                createAndShowDialog(exception, "Error");
+            }
+        });
+    }
+
+    private void createAndShowDialog(Exception exception, String title) {
+        Throwable ex = exception;
+        if(exception.getCause() != null){
+            ex = exception.getCause();
+        }
+        createAndShowDialog(ex.getMessage(), title);
+    }
+
+    private void createAndShowDialog(final String message, final String title) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(message);
+        builder.setTitle(title);
+        builder.create().show();
+    }*/
 }
