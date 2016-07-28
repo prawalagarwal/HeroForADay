@@ -8,11 +8,13 @@ public class NGOEvent {
     String date;
     String location;
     int photoId;
+    String ngoId;
 
-    NGOEvent(String name, String date, String location, int photoId) {
+    NGOEvent(String name, String date, String location, int photoId, String ngoId) {
         this.eventName = name;
         this.date = date;
         this.location = location;
         this.photoId = photoId;
+        this.ngoId = ngoId;
     }
 }

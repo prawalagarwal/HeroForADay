@@ -15,8 +15,7 @@
         android:layout_height="200dp"
         android:id="@+id/ngo_description_photo"
         android:paddingLeft="1dp"
-        android:paddingRight="1dp"
-        android:src="@drawable/sri" />
+        android:paddingRight="1dp" />
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -97,7 +96,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/ngo_page_text_2"
-                android:text="@string/ngo_description"
                 android:textSize="20sp"
                 android:layout_below="@+id/ngo_page_text_1" />
         </RelativeLayout>
